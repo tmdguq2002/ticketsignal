@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-27T00:11:21.465Z",
+  "httpStatus": 200,
+  "window": {
+    "start": "2026-10-26T15:00:00.000Z",
+    "end": "2026-11-09T15:00:00.000Z",
+    "labelStart": "2026-10-27",
+    "labelEnd": "2026-11-09"
+  },
+  "events": 170,
+  "updatedAt": "2026-10-27T00:11:02.183Z",
+  "stale": false,
+  "firstSeenAvailable": true,
+  "sources": {
+    "nol": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-27T00:11:02.183Z",
+      "lastAttemptAt": "2026-10-27T00:11:02.183Z",
+      "count": 81,
+      "scanned": 76,
+      "imageErrors": 0,
+      "unknownDates": 0,
+      "duplicateRows": 0
+    },
+    "link": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-27T00:11:02.183Z",
+      "lastAttemptAt": "2026-10-27T00:11:02.183Z",
+      "count": 40,
+      "scanned": 41,
+      "imageErrors": 0,
+      "unknownDates": 0,
+      "duplicateRows": 0
+    },
+    "melon": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-27T00:11:02.183Z",
+      "lastAttemptAt": "2026-10-27T00:11:02.183Z",
+      "count": 21,
+      "scanned": 35,
+      "imageErrors": 0,
+      "unknownDates": 14,
+      "duplicateRows": 1
+    },
+    "yes24": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-27T00:11:02.183Z",
+      "lastAttemptAt": "2026-10-27T00:11:02.183Z",
+      "count": 28,
+      "scanned": 26,
+      "imageErrors": 0,
+      "unknownDates": 0,
+      "duplicateRows": 0
+    }
+  },
+  "outOfWindow": 0
+}

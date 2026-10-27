@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-27T00:10:04.717Z",
+  "window": {
+    "start": "2026-10-26T15:00:00.000Z",
+    "end": "2026-11-09T15:00:00.000Z",
+    "labelStart": "2026-10-27",
+    "labelEnd": "2026-11-09"
+  },
+  "events": 166,
+  "displayedCounts": {
+    "nol": 81,
+    "link": 40,
+    "melon": 17,
+    "yes24": 28
+  },
+  "updatedAt": "2026-10-26T21:01:45.691Z",
+  "sources": {
+    "nol": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-26T21:01:45.691Z",
+      "lastAttemptAt": "2026-10-26T21:01:45.691Z",
+      "count": 81,
+      "scanned": 76,
+      "imageErrors": 0,
+      "unknownDates": 0
+    },
+    "link": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-26T21:01:45.691Z",
+      "lastAttemptAt": "2026-10-26T21:01:45.691Z",
+      "count": 40,
+      "scanned": 41,
+      "imageErrors": 0,
+      "unknownDates": 0
+    },
+    "melon": {
+      "status": "error",
+      "lastSuccessAt": "2026-10-25T21:03:16.454Z",
+      "lastAttemptAt": "2026-10-26T21:01:45.691Z",
+      "count": 27,
+      "scanned": 39,
+      "imageErrors": 0,
+      "unknownDates": 14,
+      "error": "Melon pagination repeated"
+    },
+    "yes24": {
+      "status": "ok",
+      "lastSuccessAt": "2026-10-26T21:01:45.691Z",
+      "lastAttemptAt": "2026-10-26T21:01:45.691Z",
+      "count": 28,
+      "scanned": 26,
+      "imageErrors": 0,
+      "unknownDates": 0
+    }
+  },
+  "outOfWindow": 0,
+  "nonDetailLinks": 0
+}

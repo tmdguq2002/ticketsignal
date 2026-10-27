@@ -1,0 +1,314 @@
+=== Installation ===
+npm WARN deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+npm WARN deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+
+added 706 packages in 29s
+
+=== Automated tests ===
+
+> site-creator-vinext-starter@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: keywords trim, deduplicate case-insensitively, and omit blanks
+ok 1 - keywords trim, deduplicate case-insensitively, and omit blanks
+  ---
+  duration_ms: 3.248905
+  type: 'test'
+  ...
+# Subtest: subscription rejects invalid email, no keywords and missing consent
+ok 2 - subscription rejects invalid email, no keywords and missing consent
+  ---
+  duration_ms: 0.619371
+  type: 'test'
+  ...
+# Subtest: search supports Korean artist and case-insensitive title with combined filters
+ok 3 - search supports Korean artist and case-insensitive title with combined filters
+  ---
+  duration_ms: 0.490643
+  type: 'test'
+  ...
+# Subtest: favorites and date range actually narrow results
+ok 4 - favorites and date range actually narrow results
+  ---
+  duration_ms: 0.193867
+  type: 'test'
+  ...
+# Subtest: disabled or incomplete credentials block all network requests
+ok 5 - disabled or incomplete credentials block all network requests
+  ---
+  duration_ms: 3.827598
+  type: 'test'
+  ...
+# Subtest: test mode only permits sender and rejects header injection
+ok 6 - test mode only permits sender and rejects header injection
+  ---
+  duration_ms: 0.768419
+  type: 'test'
+  ...
+# Subtest: refreshes token and encodes Korean message with one recipient
+ok 7 - refreshes token and encodes Korean message with one recipient
+  ---
+  duration_ms: 77.05323
+  type: 'test'
+  ...
+# Subtest: authentication failures are redacted and never send a message
+ok 8 - authentication failures are redacted and never send a message
+  ---
+  duration_ms: 0.803369
+  type: 'test'
+  ...
+# Subtest: ambiguous send failure is not retried
+ok 9 - ambiguous send failure is not retried
+  ---
+  duration_ms: 1.305473
+  type: 'test'
+  ...
+# Subtest: same performance combines sellers without dropping rounds or links
+ok 10 - same performance combines sellers without dropping rounds or links
+  ---
+  duration_ms: 19.249748
+  type: 'test'
+  ...
+# Subtest: region, season, venue, performance period and opening conflicts remain separate
+ok 11 - region, season, venue, performance period and opening conflicts remain separate
+  ---
+  duration_ms: 1.505759
+  type: 'test'
+  ...
+# Subtest: missing venue cannot bridge two conflicting venues
+ok 12 - missing venue cannot bridge two conflicting venues
+  ---
+  duration_ms: 0.465264
+  type: 'test'
+  ...
+# Subtest: missing dates and generic links do not accidentally combine events
+ok 13 - missing dates and generic links do not accidentally combine events
+  ---
+  duration_ms: 0.460024
+  type: 'test'
+  ...
+# Subtest: filters match a single schedule, detail preserves all schedules, legacy favorite works
+ok 14 - filters match a single schedule, detail preserves all schedules, legacy favorite works
+  ---
+  duration_ms: 1.132115
+  type: 'test'
+  ...
+# Subtest: real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+ok 15 - real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+  ---
+  duration_ms: 83.957946
+  type: 'test'
+  ...
+# (node:5698) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: first seen survives refresh and new sale IDs for same product; new product gets actual new time
+ok 16 - first seen survives refresh and new sale IDs for same product; new product gets actual new time
+  ---
+  duration_ms: 17.322904
+  type: 'test'
+  ...
+# Subtest: real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+ok 17 - real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+  ---
+  duration_ms: 4.487067
+  type: 'test'
+  ...
+# Subtest: counts deduplicate a browser when previously separate seller groups merge
+ok 18 - counts deduplicate a browser when previously separate seller groups merge
+  ---
+  duration_ms: 1.302802
+  type: 'test'
+  ...
+# Subtest: snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+ok 19 - snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+  ---
+  duration_ms: 0.879228
+  type: 'test'
+  ...
+# Subtest: refresh bootstrap preserves the prior collection time even before first public read
+ok 20 - refresh bootstrap preserves the prior collection time even before first public read
+  ---
+  duration_ms: 1.352523
+  type: 'test'
+  ...
+# Subtest: 14 calendar dates start at Korean midnight, excludes day 14
+ok 21 - 14 calendar dates start at Korean midnight, excludes day 14
+  ---
+  duration_ms: 3.698759
+  type: 'test'
+  ...
+# Subtest: Korean notice formats resolve to explicit timezone
+ok 22 - Korean notice formats resolve to explicit timezone
+  ---
+  duration_ms: 1.166043
+  type: 'test'
+  ...
+# Subtest: NOL multiple presales have separate event IDs and product URL
+ok 23 - NOL multiple presales have separate event IDs and product URL
+  ---
+  duration_ms: 3.002289
+  type: 'test'
+  ...
+# Subtest: YES24 ordinary and presale dates are preserved
+ok 24 - YES24 ordinary and presale dates are preserved
+  ---
+  duration_ms: 4.654867
+  type: 'test'
+  ...
+# Subtest: Melon multi-round detail parsing only uses schedule section
+ok 25 - Melon multi-round detail parsing only uses schedule section
+  ---
+  duration_ms: 1.634539
+  type: 'test'
+  ...
+# Subtest: failed source preserves last good events and timestamp, successful empty clears
+ok 26 - failed source preserves last good events and timestamp, successful empty clears
+  ---
+  duration_ms: 2.475716
+  type: 'test'
+  ...
+# Subtest: missing or unsafe poster URLs remain absent
+ok 27 - missing or unsafe poster URLs remain absent
+  ---
+  duration_ms: 0.717639
+  type: 'test'
+  ...
+# Subtest: overlapping notices across Melon pages are deduplicated without discarding the source
+ok 28 - overlapping notices across Melon pages are deduplicated without discarding the source
+  ---
+  duration_ms: 84.051526
+  type: 'test'
+  ...
+# Subtest: fully repeated full page still fails safely rather than silently returning incomplete data
+ok 29 - fully repeated full page still fails safely rather than silently returning incomplete data
+  ---
+  duration_ms: 4.482928
+  type: 'test'
+  ...
+# Subtest: 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+ok 30 - 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+  ---
+  duration_ms: 6.848556
+  type: 'test'
+  ...
+# Subtest: three sorts use next visible opening, real counts and first seen with deterministic ties
+ok 31 - three sorts use next visible opening, real counts and first seen with deterministic ties
+  ---
+  duration_ms: 0.523583
+  type: 'test'
+  ...
+# Subtest: storage survives reload and clear removes personal information
+ok 32 - storage survives reload and clear removes personal information
+  ---
+  duration_ms: 6.692109
+  type: 'test'
+  ...
+# Subtest: corrupt or blocked browser storage recovers to an empty state
+ok 33 - corrupt or blocked browser storage recovers to an empty state
+  ---
+  duration_ms: 0.704741
+  type: 'test'
+  ...
+# Subtest: user provided HTML is escaped before rendering
+ok 34 - user provided HTML is escaped before rendering
+  ---
+  duration_ms: 0.378914
+  type: 'test'
+  ...
+# Subtest: public repository loads server events and preserves official links
+ok 35 - public repository loads server events and preserves official links
+  ---
+  duration_ms: 72.119299
+  type: 'test'
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 383.415268
+
+=== Build ===
+
+> site-creator-vinext-starter@0.1.0 build
+> node scripts/run-framework.mjs build
+
+
+  vinext build  (Vite 8.0.13)
+
+(node:5763) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/5] analyze client references...
+[2K
+transforming...✓ 237 modules transformed.
+rendering chunks...
+✓ built in 814ms
+[2/5] analyze server references...
+[2K
+transforming...✓ 78 modules transformed.
+rendering chunks...
+✓ built in 211ms
+[3/5] build rsc environment...
+[2K
+transforming...✓ 234 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 874ms
+[4/5] build client environment...
+[2K
+transforming...✓ 124 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 799ms
+[5/5] build ssr environment...
+[2K
+transforming...✓ 84 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 553ms
+
+  Route (app)
+  ┌ λ /
+  ├ λ /api/events
+  ├ λ /api/interests
+  └ λ /mcp
+
+  λ API
+
+  Build complete. Run `vinext start` to start the production server.
+
+
+=== Local database migration ===
+
+ ⛅️ wrangler 4.92.0
+───────────────────
+Resource location: local
+
+Use --remote if you want to access the remote instance.
+
+🌀 Executing on local database DB (00000000-0000-4000-8000-000000000000) from .wrangler/state/v3/d1:
+🌀 To execute on your remote database, add a --remote flag to your wrangler command.
+🚣 2 commands executed successfully.
+[
+  {
+    "results": [],
+    "success": true,
+    "meta": {
+      "duration": 0
+    }
+  },
+  {
+    "results": [],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  }
+]
+
+=== Interest HTTP checks ===
+{"passed":7,"checks":["first registration +1","repeat stays +1","second browser +2","reload persists","remove decrements","cross-origin rejected","unknown event rejected"],"initialCount":0,"firstSeenAt":"2026-10-23T22:32:46.561Z"}

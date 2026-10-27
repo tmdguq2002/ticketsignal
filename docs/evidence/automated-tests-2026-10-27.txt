@@ -1,0 +1,226 @@
+
+> site-creator-vinext-starter@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: keywords trim, deduplicate case-insensitively, and omit blanks
+ok 1 - keywords trim, deduplicate case-insensitively, and omit blanks
+  ---
+  duration_ms: 5.698503
+  type: 'test'
+  ...
+# Subtest: subscription rejects invalid email, no keywords and missing consent
+ok 2 - subscription rejects invalid email, no keywords and missing consent
+  ---
+  duration_ms: 0.687071
+  type: 'test'
+  ...
+# Subtest: search supports Korean artist and case-insensitive title with combined filters
+ok 3 - search supports Korean artist and case-insensitive title with combined filters
+  ---
+  duration_ms: 0.583052
+  type: 'test'
+  ...
+# Subtest: favorites and date range actually narrow results
+ok 4 - favorites and date range actually narrow results
+  ---
+  duration_ms: 0.244407
+  type: 'test'
+  ...
+# Subtest: disabled or incomplete credentials block all network requests
+ok 5 - disabled or incomplete credentials block all network requests
+  ---
+  duration_ms: 3.5787
+  type: 'test'
+  ...
+# Subtest: test mode only permits sender and rejects header injection
+ok 6 - test mode only permits sender and rejects header injection
+  ---
+  duration_ms: 0.899599
+  type: 'test'
+  ...
+# Subtest: refreshes token and encodes Korean message with one recipient
+ok 7 - refreshes token and encodes Korean message with one recipient
+  ---
+  duration_ms: 81.383645
+  type: 'test'
+  ...
+# Subtest: authentication failures are redacted and never send a message
+ok 8 - authentication failures are redacted and never send a message
+  ---
+  duration_ms: 0.799459
+  type: 'test'
+  ...
+# Subtest: ambiguous send failure is not retried
+ok 9 - ambiguous send failure is not retried
+  ---
+  duration_ms: 1.372491
+  type: 'test'
+  ...
+# Subtest: same performance combines sellers without dropping rounds or links
+ok 10 - same performance combines sellers without dropping rounds or links
+  ---
+  duration_ms: 20.67146
+  type: 'test'
+  ...
+# Subtest: region, season, venue, performance period and opening conflicts remain separate
+ok 11 - region, season, venue, performance period and opening conflicts remain separate
+  ---
+  duration_ms: 1.172464
+  type: 'test'
+  ...
+# Subtest: missing venue cannot bridge two conflicting venues
+ok 12 - missing venue cannot bridge two conflicting venues
+  ---
+  duration_ms: 0.354295
+  type: 'test'
+  ...
+# Subtest: missing dates and generic links do not accidentally combine events
+ok 13 - missing dates and generic links do not accidentally combine events
+  ---
+  duration_ms: 0.448714
+  type: 'test'
+  ...
+# Subtest: filters match a single schedule, detail preserves all schedules, legacy favorite works
+ok 14 - filters match a single schedule, detail preserves all schedules, legacy favorite works
+  ---
+  duration_ms: 0.942107
+  type: 'test'
+  ...
+# Subtest: real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+ok 15 - real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+  ---
+  duration_ms: 80.402879
+  type: 'test'
+  ...
+# (node:3384) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: first seen survives refresh and new sale IDs for same product; new product gets actual new time
+ok 16 - first seen survives refresh and new sale IDs for same product; new product gets actual new time
+  ---
+  duration_ms: 19.031682
+  type: 'test'
+  ...
+# Subtest: real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+ok 17 - real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+  ---
+  duration_ms: 5.808763
+  type: 'test'
+  ...
+# Subtest: counts deduplicate a browser when previously separate seller groups merge
+ok 18 - counts deduplicate a browser when previously separate seller groups merge
+  ---
+  duration_ms: 1.419039
+  type: 'test'
+  ...
+# Subtest: snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+ok 19 - snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+  ---
+  duration_ms: 1.653867
+  type: 'test'
+  ...
+# Subtest: refresh bootstrap preserves the prior collection time even before first public read
+ok 20 - refresh bootstrap preserves the prior collection time even before first public read
+  ---
+  duration_ms: 1.135544
+  type: 'test'
+  ...
+# Subtest: 14 calendar dates start at Korean midnight, excludes day 14
+ok 21 - 14 calendar dates start at Korean midnight, excludes day 14
+  ---
+  duration_ms: 4.693225
+  type: 'test'
+  ...
+# Subtest: Korean notice formats resolve to explicit timezone
+ok 22 - Korean notice formats resolve to explicit timezone
+  ---
+  duration_ms: 0.846809
+  type: 'test'
+  ...
+# Subtest: NOL multiple presales have separate event IDs and product URL
+ok 23 - NOL multiple presales have separate event IDs and product URL
+  ---
+  duration_ms: 3.681662
+  type: 'test'
+  ...
+# Subtest: YES24 ordinary and presale dates are preserved
+ok 24 - YES24 ordinary and presale dates are preserved
+  ---
+  duration_ms: 6.852907
+  type: 'test'
+  ...
+# Subtest: Melon multi-round detail parsing only uses schedule section
+ok 25 - Melon multi-round detail parsing only uses schedule section
+  ---
+  duration_ms: 1.515479
+  type: 'test'
+  ...
+# Subtest: failed source preserves last good events and timestamp, successful empty clears
+ok 26 - failed source preserves last good events and timestamp, successful empty clears
+  ---
+  duration_ms: 2.21692
+  type: 'test'
+  ...
+# Subtest: missing or unsafe poster URLs remain absent
+ok 27 - missing or unsafe poster URLs remain absent
+  ---
+  duration_ms: 0.396885
+  type: 'test'
+  ...
+# Subtest: overlapping notices across Melon pages are deduplicated without discarding the source
+ok 28 - overlapping notices across Melon pages are deduplicated without discarding the source
+  ---
+  duration_ms: 86.731462
+  type: 'test'
+  ...
+# Subtest: fully repeated full page still fails safely rather than silently returning incomplete data
+ok 29 - fully repeated full page still fails safely rather than silently returning incomplete data
+  ---
+  duration_ms: 3.674661
+  type: 'test'
+  ...
+# Subtest: 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+ok 30 - 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+  ---
+  duration_ms: 6.253975
+  type: 'test'
+  ...
+# Subtest: three sorts use next visible opening, real counts and first seen with deterministic ties
+ok 31 - three sorts use next visible opening, real counts and first seen with deterministic ties
+  ---
+  duration_ms: 0.588953
+  type: 'test'
+  ...
+# Subtest: storage survives reload and clear removes personal information
+ok 32 - storage survives reload and clear removes personal information
+  ---
+  duration_ms: 5.756112
+  type: 'test'
+  ...
+# Subtest: corrupt or blocked browser storage recovers to an empty state
+ok 33 - corrupt or blocked browser storage recovers to an empty state
+  ---
+  duration_ms: 0.72742
+  type: 'test'
+  ...
+# Subtest: user provided HTML is escaped before rendering
+ok 34 - user provided HTML is escaped before rendering
+  ---
+  duration_ms: 0.344155
+  type: 'test'
+  ...
+# Subtest: public repository loads server events and preserves official links
+ok 35 - public repository loads server events and preserves official links
+  ---
+  duration_ms: 74.553498
+  type: 'test'
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 382.465327

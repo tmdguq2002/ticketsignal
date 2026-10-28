@@ -18,3 +18,6 @@ export const emailDeliveries=sqliteTable('email_deliveries',{
 export const emailLimits=sqliteTable('email_limits',{
  key:text('key').primaryKey(),count:integer('count').notNull(),expiresAt:text('expires_at').notNull()
 });
+export const sourceRefreshLock=sqliteTable('source_refresh_lock',{
+ name:text('name').primaryKey(),owner:text('owner').notNull(),expiresAt:text('expires_at').notNull()
+});

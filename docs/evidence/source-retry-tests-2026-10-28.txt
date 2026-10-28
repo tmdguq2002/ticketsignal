@@ -1,0 +1,350 @@
+
+> site-creator-vinext-starter@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: keywords trim, deduplicate case-insensitively, and omit blanks
+ok 1 - keywords trim, deduplicate case-insensitively, and omit blanks
+  ---
+  duration_ms: 6.680359
+  type: 'test'
+  ...
+# Subtest: subscription rejects invalid email, no keywords and missing consent
+ok 2 - subscription rejects invalid email, no keywords and missing consent
+  ---
+  duration_ms: 0.67104
+  type: 'test'
+  ...
+# Subtest: search supports Korean artist and case-insensitive title with combined filters
+ok 3 - search supports Korean artist and case-insensitive title with combined filters
+  ---
+  duration_ms: 0.514563
+  type: 'test'
+  ...
+# Subtest: favorites and date range actually narrow results
+ok 4 - favorites and date range actually narrow results
+  ---
+  duration_ms: 0.273826
+  type: 'test'
+  ...
+# Subtest: disabled or incomplete credentials block all network requests
+ok 5 - disabled or incomplete credentials block all network requests
+  ---
+  duration_ms: 6.196936
+  type: 'test'
+  ...
+# Subtest: test mode only permits sender and rejects header injection
+ok 6 - test mode only permits sender and rejects header injection
+  ---
+  duration_ms: 1.41866
+  type: 'test'
+  ...
+# Subtest: refreshes token and encodes Korean message with one recipient
+ok 7 - refreshes token and encodes Korean message with one recipient
+  ---
+  duration_ms: 95.051851
+  type: 'test'
+  ...
+# Subtest: authentication failures are redacted and never send a message
+ok 8 - authentication failures are redacted and never send a message
+  ---
+  duration_ms: 0.792129
+  type: 'test'
+  ...
+# Subtest: ambiguous send failure is not retried
+ok 9 - ambiguous send failure is not retried
+  ---
+  duration_ms: 1.296053
+  type: 'test'
+  ...
+# Subtest: live transport permits recipients only in live mode; test transport remains sender-only
+ok 10 - live transport permits recipients only in live mode; test transport remains sender-only
+  ---
+  duration_ms: 2.18664
+  type: 'test'
+  ...
+# Subtest: same performance combines sellers without dropping rounds or links
+ok 11 - same performance combines sellers without dropping rounds or links
+  ---
+  duration_ms: 29.686626
+  type: 'test'
+  ...
+# Subtest: region, season, venue, performance period and opening conflicts remain separate
+ok 12 - region, season, venue, performance period and opening conflicts remain separate
+  ---
+  duration_ms: 1.760806
+  type: 'test'
+  ...
+# Subtest: missing venue cannot bridge two conflicting venues
+ok 13 - missing venue cannot bridge two conflicting venues
+  ---
+  duration_ms: 0.504663
+  type: 'test'
+  ...
+# Subtest: missing dates and generic links do not accidentally combine events
+ok 14 - missing dates and generic links do not accidentally combine events
+  ---
+  duration_ms: 0.722911
+  type: 'test'
+  ...
+# Subtest: filters match a single schedule, detail preserves all schedules, legacy favorite works
+ok 15 - filters match a single schedule, detail preserves all schedules, legacy favorite works
+  ---
+  duration_ms: 1.084905
+  type: 'test'
+  ...
+# Subtest: real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+ok 16 - real snapshot merges Baek Jiyoung sellers and keeps regional tour stops distinct
+  ---
+  duration_ms: 97.881271
+  type: 'test'
+  ...
+# (node:3619) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: first seen survives refresh and new sale IDs for same product; new product gets actual new time
+ok 17 - first seen survives refresh and new sale IDs for same product; new product gets actual new time
+  ---
+  duration_ms: 18.30472
+  type: 'test'
+  ...
+# Subtest: real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+ok 18 - real SQLite unique keys make repeat saves idempotent; distinct browsers count once per grouped performance
+  ---
+  duration_ms: 5.698494
+  type: 'test'
+  ...
+# Subtest: counts deduplicate a browser when previously separate seller groups merge
+ok 19 - counts deduplicate a browser when previously separate seller groups merge
+  ---
+  duration_ms: 1.353471
+  type: 'test'
+  ...
+# Subtest: snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+ok 20 - snapshot enrichment failure preserves the event feed and explicitly marks timestamps unavailable
+  ---
+  duration_ms: 1.057366
+  type: 'test'
+  ...
+# Subtest: refresh bootstrap preserves the prior collection time even before first public read
+ok 21 - refresh bootstrap preserves the prior collection time even before first public read
+  ---
+  duration_ms: 0.892438
+  type: 'test'
+  ...
+# Subtest: 14 calendar dates start at Korean midnight, excludes day 14
+ok 22 - 14 calendar dates start at Korean midnight, excludes day 14
+  ---
+  duration_ms: 3.190827
+  type: 'test'
+  ...
+# Subtest: Korean notice formats resolve to explicit timezone
+ok 23 - Korean notice formats resolve to explicit timezone
+  ---
+  duration_ms: 0.811289
+  type: 'test'
+  ...
+# Subtest: NOL multiple presales have separate event IDs and product URL
+ok 24 - NOL multiple presales have separate event IDs and product URL
+  ---
+  duration_ms: 3.044358
+  type: 'test'
+  ...
+# Subtest: YES24 ordinary and presale dates are preserved
+ok 25 - YES24 ordinary and presale dates are preserved
+  ---
+  duration_ms: 8.566322
+  type: 'test'
+  ...
+# Subtest: Melon multi-round detail parsing only uses schedule section
+ok 26 - Melon multi-round detail parsing only uses schedule section
+  ---
+  duration_ms: 1.819005
+  type: 'test'
+  ...
+# Subtest: failed source preserves last good events and timestamp, successful empty clears
+ok 27 - failed source preserves last good events and timestamp, successful empty clears
+  ---
+  duration_ms: 2.724273
+  type: 'test'
+  ...
+# Subtest: missing or unsafe poster URLs remain absent
+ok 28 - missing or unsafe poster URLs remain absent
+  ---
+  duration_ms: 0.462534
+  type: 'test'
+  ...
+# Subtest: overlapping notices across Melon pages are deduplicated without discarding the source
+ok 29 - overlapping notices across Melon pages are deduplicated without discarding the source
+  ---
+  duration_ms: 107.831956
+  type: 'test'
+  ...
+# Subtest: fully repeated full page still fails safely rather than silently returning incomplete data
+ok 30 - fully repeated full page still fails safely rather than silently returning incomplete data
+  ---
+  duration_ms: 4.817966
+  type: 'test'
+  ...
+# (node:3622) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: overlapping full refresh and retry do not run together; lease releases after success
+ok 31 - overlapping full refresh and retry do not run together; lease releases after success
+  ---
+  duration_ms: 27.301589
+  type: 'test'
+  ...
+# Subtest: failed refresh releases lock for later attempt
+ok 32 - failed refresh releases lock for later attempt
+  ---
+  duration_ms: 1.758567
+  type: 'test'
+  ...
+# Subtest: expired owner cannot commit a snapshot
+ok 33 - expired owner cannot commit a snapshot
+  ---
+  duration_ms: 1.612667
+  type: 'test'
+  ...
+# Subtest: 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+ok 34 - 72 hours includes now and exact upper boundary; excludes past, +1ms, invalid
+  ---
+  duration_ms: 7.443499
+  type: 'test'
+  ...
+# Subtest: three sorts use next visible opening, real counts and first seen with deterministic ties
+ok 35 - three sorts use next visible opening, real counts and first seen with deterministic ties
+  ---
+  duration_ms: 0.785588
+  type: 'test'
+  ...
+# Subtest: daily failure schedules 30 minute retry, success resets failures
+ok 36 - daily failure schedules 30 minute retry, success resets failures
+  ---
+  duration_ms: 4.765946
+  type: 'test'
+  ...
+# Subtest: only failed eligible source fetched; healthy data and full-refresh timestamp preserved
+ok 37 - only failed eligible source fetched; healthy data and full-refresh timestamp preserved
+  ---
+  duration_ms: 79.395844
+  type: 'test'
+  ...
+# Subtest: no eligible failures makes no requests or snapshot changes
+ok 38 - no eligible failures makes no requests or snapshot changes
+  ---
+  duration_ms: 0.206228
+  type: 'test'
+  ...
+# Subtest: three retries back off 30/60/120 minutes then pause until daily collection resets budget
+ok 39 - three retries back off 30/60/120 minutes then pause until daily collection resets budget
+  ---
+  duration_ms: 2.269118
+  type: 'test'
+  ...
+# Subtest: legacy errors without retry metadata use last attempt plus 30 minutes
+ok 40 - legacy errors without retry metadata use last attempt plus 30 minutes
+  ---
+  duration_ms: 0.334295
+  type: 'test'
+  ...
+# Subtest: retry quiet window protects 06:00 daily full refresh
+ok 41 - retry quiet window protects 06:00 daily full refresh
+  ---
+  duration_ms: 2.611205
+  type: 'test'
+  ...
+# Subtest: storage survives reload and clear removes personal information
+ok 42 - storage survives reload and clear removes personal information
+  ---
+  duration_ms: 6.060968
+  type: 'test'
+  ...
+# Subtest: corrupt or blocked browser storage recovers to an empty state
+ok 43 - corrupt or blocked browser storage recovers to an empty state
+  ---
+  duration_ms: 0.689481
+  type: 'test'
+  ...
+# Subtest: user provided HTML is escaped before rendering
+ok 44 - user provided HTML is escaped before rendering
+  ---
+  duration_ms: 0.401804
+  type: 'test'
+  ...
+# Subtest: public repository loads server events and preserves official links
+ok 45 - public repository loads server events and preserves official links
+  ---
+  duration_ms: 80.567477
+  type: 'test'
+  ...
+# (node:3641) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: pending does not receive alerts; confirm once activates, replay is harmless; unsubscribe deletes personal data
+ok 46 - pending does not receive alerts; confirm once activates, replay is harmless; unsubscribe deletes personal data
+  ---
+  duration_ms: 38.462937
+  type: 'test'
+  ...
+# Subtest: keyword changes require re-verification and token expires
+ok 47 - keyword changes require re-verification and token expires
+  ---
+  duration_ms: 9.67206
+  type: 'test'
+  ...
+# Subtest: repeat and concurrent runs send once; excludes past, beyond 24h, and nonmatching events
+ok 48 - repeat and concurrent runs send once; excludes past, beyond 24h, and nonmatching events
+  ---
+  duration_ms: 31.408323
+  type: 'test'
+  ...
+# Subtest: stale snapshot and unsubscribed addresses receive no alerts; unknown sends are never automatically retried
+ok 49 - stale snapshot and unsubscribed addresses receive no alerts; unknown sends are never automatically retried
+  ---
+  duration_ms: 8.05952
+  type: 'test'
+  ...
+# Subtest: email cooldown and IP limit stop repeated confirmation email requests
+ok 50 - email cooldown and IP limit stop repeated confirmation email requests
+  ---
+  duration_ms: 8.076561
+  type: 'test'
+  ...
+# Subtest: tampered tokens cannot confirm or unsubscribe; invalid consent and keywords rejected
+ok 51 - tampered tokens cannot confirm or unsubscribe; invalid consent and keywords rejected
+  ---
+  duration_ms: 4.968933
+  type: 'test'
+  ...
+# Subtest: confirming does not reset per-email cooldown
+ok 52 - confirming does not reset per-email cooldown
+  ---
+  duration_ms: 3.761638
+  type: 'test'
+  ...
+# Subtest: same title and opening time at different known venues remain distinct alerts
+ok 53 - same title and opening time at different known venues remain distinct alerts
+  ---
+  duration_ms: 5.985278
+  type: 'test'
+  ...
+# Subtest: exhausted daily quota preserves a previously emailed confirmation token
+ok 54 - exhausted daily quota preserves a previously emailed confirmation token
+  ---
+  duration_ms: 6.405934
+  type: 'test'
+  ...
+# Subtest: venue enrichment and additional seller never resend an already alerted source opening
+ok 55 - venue enrichment and additional seller never resend an already alerted source opening
+  ---
+  duration_ms: 5.635163
+  type: 'test'
+  ...
+1..55
+# tests 55
+# suites 0
+# pass 55
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 503.039751

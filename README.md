@@ -32,7 +32,7 @@ NOL 티켓, 티켓링크, 멜론티켓, YES24의 공개 오픈예정 공지를 �
 
 ## 구현 검증
 
-공연 탐색부터 이메일 구독 확인·실제 알림 수신까지 검증했다. 2026-10-28 기준 자동 테스트 **46개**, 이메일 기능의 로컬 HTTP 검사 **9개**가 통과했다. 데이터 건수는 각 검증 시점의 수집본 기준이다.
+공연 탐색부터 이메일 구독 확인·실제 알림 수신까지 검증했다. 2026-10-28 기준 자동 테스트 **55개**, 이메일 기능의 로컬 HTTP 검사 **9개**가 통과했다. 데이터 건수는 각 검증 시점의 수집본 기준이다.
 
 | 검증 항목 | 실제 결과 | 근거 |
 |---|---|---|
@@ -42,7 +42,7 @@ NOL 티켓, 티켓링크, 멜론티켓, YES24의 공개 오픈예정 공지를 �
 | 관심 공연 저장 | 등록·새로고침 후 유지·해제 및 중복 집계 방지 확인 | [저장 검증](docs/validation-live.md#관심-등록-저장) |
 | 실제 이메일 알림 | 구독 확인 후 테이 공연 알림 1건 발송·사용자 수신 확인. 재실행 시 추가 발송 0건·중복 건너뜀 1건 | [이메일 검증](docs/email-alerts-live.md) |
 
-검증 방법·기대 결과·실제 결과·증거를 연결한 [제출용 검증 보고서](docs/validation-summary.md)와 [자동 테스트 로그](docs/evidence/email-alert-tests-2026-10-28.txt)를 제공한다.
+검증 방법·기대 결과·실제 결과·증거를 연결한 [제출용 검증 보고서](docs/validation-summary.md)와 [자동 테스트 로그](docs/evidence/source-retry-tests-2026-10-28.txt)를 제공한다.
 
 ## 이메일 알림 동작
 
@@ -63,6 +63,7 @@ npm run build
 cp .env.example dist/server/.dev.vars
 node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_lucky_scrambler.sql
 node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0001_perpetual_pretty_boy.sql
+node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0002_rapid_felicia_hardy.sql
 npm start -- --port 4173
 ```
 
@@ -120,3 +121,7 @@ node tests/interest-http-check.mjs http://127.0.0.1:4173
 | 막힌 곳과 복구 | 멜론의 페이지 중복 때문에 갱신 실패 → 중복 행 제외와 회귀 테스트 추가 → 수동 갱신으로 네 예매처 정상 확인. 브라우저 라이브러리 누락도 개발 환경 보완 후 검증 재개 |
 
 테스트와 화면 검증은 에이전트가 수행했고, 사용자는 구독 확인 버튼 클릭과 실제 공연 알림 수신을 확인했다. YES24 상세 페이지는 자동 브라우저 접속 차단으로 본문 확인이 제한됐다. 매시간 예약의 실제 실행 성공과 운영 환경의 구독 해지는 이번 수동 검증 범위에 포함하지 않았다.
+
+## 실패한 예매처 자동 재시도
+
+매시 45분에 실패 예매처만 확인한다. 실패 후 최소 30분, 재실패 후 60분·120분을 기다린 다음 예약 실행에 재시도하며 최대 3회 후 다음 전체 수집까지 보류한다. 정상 예매처와 이전 정상 데이터는 유지한다. 05:45~06:15에는 재시도를 쉬어 오전 6시 전체 수집을 우선한다. 대상이 없으면 원본 사이트에 요청하지 않는다. [동작 규칙과 검증 범위](docs/source-retries.md).

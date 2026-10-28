@@ -6,7 +6,7 @@ export function validateSubscription({email,keywords,consent}) {
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email||'')||email.length>254) return '올바른 이메일 주소를 입력해 주세요.';
   if(!Array.isArray(keywords)||!keywords.length) return '관심 아티스트나 작품을 하나 이상 입력해 주세요.';
   if(keywords.length>10||keywords.some(x=>x.length>40)) return '키워드는 최대 10개, 각각 40자까지 입력할 수 있어요.';
-  if(!consent) return '이 브라우저에 데모 정보를 저장하는 데 동의해 주세요.';
+  if(!consent) return '이메일 알림을 위한 정보 수집·이용에 동의해 주세요.';
   return '';
 }
 export function filterEvents(events,{query='',platform='all',category='all',range='all',view='all',favorites=[],keywords=[],now=Date.now()}={}) {

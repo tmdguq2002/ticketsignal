@@ -22,3 +22,11 @@ test('authentication failures are redacted and never send a message',async()=>{
 test('ambiguous send failure is not retried',async()=>{
  let calls=0;await assert.rejects(()=>sendTestEmail(config,{to:config.GMAIL_SENDER_EMAIL,subject:'test',text:'hello'},async()=>{calls++;if(calls===1)return Response.json({access_token:'access'});throw Error('contains credentials');}),/^Error: GMAIL_DELIVERY_UNKNOWN$/);assert.equal(calls,2);
 });
+
+test('live transport permits recipients only in live mode; test transport remains sender-only',async()=>{
+ const {sendEmail}=await import('../server/gmail.mjs');
+ await assert.rejects(()=>sendEmail(config,{to:'other@example.com',subject:'a',text:'b'}),/GMAIL_NOT_LIVE/);
+ const mock=async url=>Response.json(url.includes('oauth2')?{access_token:'fake'}:{id:'accepted'});
+ assert.equal((await sendEmail({...config,GMAIL_MODE:'live'},{to:'other@example.com',subject:'a',text:'b'},mock)).status,'accepted');
+ await assert.rejects(()=>sendTestEmail({...config,GMAIL_MODE:'live'},{to:'other@example.com',subject:'a',text:'b'},mock),/GMAIL_TEST_RECIPIENT/);
+});

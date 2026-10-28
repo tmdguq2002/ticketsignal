@@ -4,14 +4,23 @@ const validEmail=value=>typeof value==='string'&&/^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}
 export function gmailStatus(config){
  const missing=REQUIRED.filter(key=>typeof config[key]!=='string'||!config[key].trim());
  const senderValid=validEmail(config.GMAIL_SENDER_EMAIL);
- const mode=config.GMAIL_MODE==='test'?'test':'disabled';
- return {provider:'gmail',mode,ready:!missing.length&&senderValid&&mode==='test',missing,senderValid,publicSubscriptionsEnabled:false};
+ const mode=['test','live'].includes(config.GMAIL_MODE)?config.GMAIL_MODE:'disabled';
+ return {provider:'gmail',mode,ready:!missing.length&&senderValid&&mode!=='disabled',missing,senderValid,publicSubscriptionsEnabled:mode==='live'&&config.SUBSCRIPTIONS_ENABLED==='true'};
 }
 function base64(value){const bytes=new TextEncoder().encode(value);let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);return btoa(binary);}
 export async function sendTestEmail(config,message,fetcher=fetch){
  if(!gmailStatus(config).ready)throw Error('GMAIL_NOT_READY');
+ if(typeof message.to!=='string'||message.to.toLowerCase()!==String(config.GMAIL_SENDER_EMAIL).toLowerCase())throw Error('GMAIL_TEST_RECIPIENT');
+ return transport(config,message,fetcher);
+}
+export async function sendEmail(config,message,fetcher=fetch){
+ if(config.GMAIL_MODE!=='live')throw Error('GMAIL_NOT_LIVE');
+ return transport(config,message,fetcher);
+}
+async function transport(config,message,fetcher){
+ if(!gmailStatus(config).ready)throw Error('GMAIL_NOT_READY');
  const sender=config.GMAIL_SENDER_EMAIL;
- if(!validEmail(message.to)||message.to.toLowerCase()!==sender.toLowerCase())throw Error('GMAIL_TEST_RECIPIENT');
+ if(!validEmail(message.to))throw Error('GMAIL_INVALID_RECIPIENT');
  if(typeof message.subject!=='string'||/[\r\n]/.test(message.subject)||message.subject.length>200||typeof message.text!=='string'||message.text.length>50000)throw Error('INVALID_MESSAGE');
  let auth;
  try{auth=await fetcher('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:config.GMAIL_CLIENT_ID,client_secret:config.GMAIL_CLIENT_SECRET,refresh_token:config.GMAIL_REFRESH_TOKEN,grant_type:'refresh_token'}),signal:AbortSignal.timeout(15000)});}catch{throw Error('GMAIL_AUTH_UNAVAILABLE');}

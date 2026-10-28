@@ -4,7 +4,7 @@ export const eventRepository={async snapshot(){const r=await fetch('/api/events'
 const KEY='ticket-signal-demo-v1';
 const initial=()=>({favorites:[],subscription:null});
 export function createLocalRepository(storage) {return {
- load(){try{const p=JSON.parse(storage.getItem(KEY));if(!p||!Array.isArray(p.favorites)) return initial();const s=p.subscription;return {favorites:p.favorites.filter(x=>typeof x==='string'),subscription:s&&typeof s.email==='string'&&Array.isArray(s.keywords)&&s.keywords.every(x=>typeof x==='string')?{email:s.email,keywords:s.keywords.slice(0,10),timing:Array.isArray(s.timing)?s.timing.filter(x=>['new','day','hour'].includes(x)):['new'],createdAt:s.createdAt}:null};}catch{return initial();}},
+ load(){try{const p=JSON.parse(storage.getItem(KEY));if(!p||!Array.isArray(p.favorites)) return initial();const s=p.subscription;return {favorites:p.favorites.filter(x=>typeof x==='string'),subscription:s&&typeof s.email==='string'&&Array.isArray(s.keywords)&&s.keywords.every(x=>typeof x==='string')?{email:s.email,keywords:s.keywords.slice(0,10),timing:Array.isArray(s.timing)?s.timing.filter(x=>['new','day','hour'].includes(x)):['new'],...(s.serverRequested===true?{serverRequested:true}:{}),createdAt:s.createdAt}:null};}catch{return initial();}},
  save(value){storage.setItem(KEY,JSON.stringify(value));},
  clear(){storage.removeItem(KEY);}
 };}

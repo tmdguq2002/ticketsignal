@@ -1,0 +1,31 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {DatabaseSync} from 'node:sqlite';import {readFileSync,readdirSync} from 'node:fs';
+import {requestSubscription,confirmSubscription,unsubscribe,runAlerts,signUnsubscribe} from '../server/subscriptions.mjs';
+function db(){
+ const sql=new DatabaseSync(':memory:');
+ for(const f of readdirSync(new URL('../drizzle/',import.meta.url)).filter(x=>x.endsWith('.sql'))) sql.exec(readFileSync(new URL('../drizzle/'+f,import.meta.url),'utf8'));
+ return {sql, prepare(q){
+  return {bind(...a){
+   const s=sql.prepare(q);
+   return {first:async()=>s.get(...a),all:async()=>({results:s.all(...a)}),run:async()=>{const r=s.run(...a);return {meta:{changes:r.changes}};}};
+  }};
+ }};
+}
+const config={GMAIL_MODE:'live',SUBSCRIPTIONS_ENABLED:'true',SUBSCRIPTION_SECRET:'test-signing-key-at-least-32-characters',SITE_ORIGIN:'https://example.com'};
+const body={email:'person@example.com',keywords:['백지영'],consent:true};const now=Date.parse('2026-10-28T00:00:00Z');
+const sender=messages=>async m=>{messages.push(m);return {status:'accepted',messageId:'test'};};
+function token(messages){return messages.at(-1).text.match(/#token=([^\s]+)/)[1];}
+async function active(database,messages){await requestSubscription(database,config,body,'ip1',sender(messages),now);await confirmSubscription(database,config,token(messages),now);}
+const snapshot={updatedAt:new Date(now).toISOString(),events:[{id:'x',title:'백지영 콘서트',artist:'백지영',platform:'nol',url:'https://nol.yanolja.com/ticket/products/1',opensAt:new Date(now+24*3600000).toISOString()}]};
+test('pending does not receive alerts; confirm once activates, replay is harmless; unsubscribe deletes personal data',async()=>{const d=db(),m=[];await requestSubscription(d,config,body,'ip1',sender(m),now);assert.equal((await runAlerts(d,config,snapshot,sender(m),now)).sent,0);const t=token(m);assert.equal((await confirmSubscription(d,config,t,now)).active,true);assert.equal((await confirmSubscription(d,config,t,now)).active,false);const row=d.sql.prepare('SELECT * FROM email_subscriptions').get();await unsubscribe(d,config,await signUnsubscribe(config,row.id));assert.equal(d.sql.prepare('SELECT COUNT(*) n FROM email_subscriptions').get().n,0);});
+test('keyword changes require re-verification and token expires',async()=>{const d=db(),m=[];await active(d,m);await requestSubscription(d,config,{...body,keywords:['뮤지컬']},'ip1',sender(m),now+600001);assert.deepEqual(JSON.parse(d.sql.prepare('SELECT keywords FROM email_subscriptions').get().keywords),['백지영']);assert.equal((await confirmSubscription(d,config,token(m),now+25*3600000)).active,false);});
+test('repeat and concurrent runs send once; excludes past, beyond 24h, and nonmatching events',async()=>{const d=db(),m=[];await active(d,m);m.length=0;const events=[...snapshot.events,{...snapshot.events[0],id:'past',opensAt:new Date(now-1).toISOString()},{...snapshot.events[0],id:'future',opensAt:new Date(now+24*3600000+1).toISOString()},{...snapshot.events[0],title:'다른 공연',artist:'다른',id:'other'}];await Promise.all([runAlerts(d,config,{...snapshot,events},sender(m),now),runAlerts(d,config,{...snapshot,events},sender(m),now)]);assert.equal(m.length,1);assert.match(m[0].text,/해지/);});
+test('stale snapshot and unsubscribed addresses receive no alerts; unknown sends are never automatically retried',async()=>{const d=db(),m=[];await active(d,m);assert.equal((await runAlerts(d,config,{...snapshot,updatedAt:new Date(now-27*3600000).toISOString()},sender(m),now)).sent,0);let calls=0;await runAlerts(d,config,snapshot,async()=>{calls++;throw Error('GMAIL_DELIVERY_UNKNOWN');},now);await runAlerts(d,config,snapshot,async()=>{calls++;},now);assert.equal(calls,1);});
+test('email cooldown and IP limit stop repeated confirmation email requests',async()=>{const d=db(),m=[];await requestSubscription(d,config,body,'same',sender(m),now);await requestSubscription(d,config,body,'same',sender(m),now+1);assert.equal(m.length,1);for(let i=0;i<7;i++)await requestSubscription(d,config,{...body,email:`p${i}@example.com`},'same',sender(m),now);assert.ok(m.length<=5);});
+test('tampered tokens cannot confirm or unsubscribe; invalid consent and keywords rejected',async()=>{const d=db(),m=[];await active(d,m);assert.equal((await confirmSubscription(d,config,'bad',now)).active,false);assert.equal((await unsubscribe(d,config,'bad')).removed,false);await assert.rejects(()=>requestSubscription(d,config,{...body,consent:false},'ip',sender(m),now));await assert.rejects(()=>requestSubscription(d,config,{...body,keywords:['']},'ip',sender(m),now));});
+
+test('confirming does not reset per-email cooldown',async()=>{const d=db(),m=[];await active(d,m);await requestSubscription(d,config,body,'another-ip',sender(m),now+1);assert.equal(m.length,1);});
+test('same title and opening time at different known venues remain distinct alerts',async()=>{const d=db(),m=[];await active(d,m);m.length=0;await runAlerts(d,config,{...snapshot,events:[{...snapshot.events[0],venue:'서울 공연장'},{...snapshot.events[0],id:'second',platform:'link',url:'https://www.ticketlink.co.kr/product/2',venue:'부산 공연장'}]},sender(m),now);assert.equal(m.length,2);});
+
+test('exhausted daily quota preserves a previously emailed confirmation token',async()=>{const d=db(),m=[];await requestSubscription(d,config,body,'ip1',sender(m),now);const original=token(m);d.sql.prepare('UPDATE email_limits SET count=200 WHERE key LIKE ?').run('daily:%');await requestSubscription(d,config,{...body,keywords:['다른 작품']},'ip2',sender(m),now+600001);assert.equal(m.length,1);assert.equal((await confirmSubscription(d,config,original,now+600002)).active,true);});
+
+test('venue enrichment and additional seller never resend an already alerted source opening',async()=>{const d=db(),m=[];await active(d,m);m.length=0;await runAlerts(d,config,snapshot,sender(m),now);const enriched={...snapshot.events[0],venue:'서울 공연장'};await runAlerts(d,config,{...snapshot,events:[enriched,{...enriched,id:'new-seller',platform:'link',url:'https://www.ticketlink.co.kr/product/2'}]},sender(m),now);await runAlerts(d,config,{...snapshot,events:[{...enriched,id:'new-seller',platform:'link',url:'https://www.ticketlink.co.kr/product/2'}]},sender(m),now);assert.equal(m.length,1);});

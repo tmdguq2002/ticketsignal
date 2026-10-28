@@ -8,6 +8,13 @@
       "when": 1793023601021,
       "tag": "0000_lucky_scrambler",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793105821241,
+      "tag": "0001_perpetual_pretty_boy",
+      "breakpoints": true
     }
   ]
 }
